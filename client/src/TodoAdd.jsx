@@ -46,9 +46,12 @@ export const TodoList = () => {
                     setDescription('');
                     setTodos([...todos, data]);
                     alert("Item added successfully!")
+                    setError("")
                 })
                 .catch((err) => {
-                    setError(`Error occured: ${err.message}`);
+                    setTitle("")
+                    setDescription("")
+                    setError(err.message);
                 });
         } else {
             setError("Please fill out both title and description.");
@@ -65,10 +68,11 @@ export const TodoList = () => {
             .then((res) => {
                 if (res.ok) {
                     alert("Deletion successful")
+                    setError('')
                     setTodos(todos.filter(todo => todo._id !== id))
                     return
                 }
-                throw new Error("Unable to add todo")
+                throw new Error("Unable to delete todo")
             }).catch((err) => {
                 setError(`Error occured: ${err.message}`)
             })
@@ -97,7 +101,9 @@ export const TodoList = () => {
             setEditTitle("")
             setEditDesc("")
             setEditId(-1)
-            getTodos()
+            getTodos().then((data) => {
+                setTodos(data)
+            })
         })
             .catch((err) => setError(`Error: ${err.message}`))
     }

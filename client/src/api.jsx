@@ -26,7 +26,11 @@ export const addTodo = (title, description) => {
             if (res.ok) {
                 return res.json();
             }
-            throw new Error("Failed to add todo")
+            return res.json().then((err) =>{
+                throw new Error(err.message)
+            })
+        }).catch((err) => {
+            throw err;
         })
 };
 

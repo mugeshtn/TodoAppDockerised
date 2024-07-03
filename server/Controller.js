@@ -1,5 +1,13 @@
 import todoModel from './todoSchema.js';
 
+
+const handleDBErrors = (err) => {
+    if(err.code === 11000){
+        return "Task title already added!!! Consider editing!"
+    }
+    return "Error occured in adding todo"
+}
+
 export const todoGet = async (req, res) => {
     try {
         const todos = await todoModel.find()
@@ -9,16 +17,16 @@ export const todoGet = async (req, res) => {
 }
 }
 
-export const todoPost = async (req, res) => {
+export const todoAdd = async (req, res) => {
     try {
 
         const { title, description } = req.body
         const newTodo = new todoModel({ title, description })
         await newTodo.save()
         res.status(200).json(newTodo)
-
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        const err = handleDBErrors(error)
+        res.status(500).json({ message: err })
     }
 }
 
