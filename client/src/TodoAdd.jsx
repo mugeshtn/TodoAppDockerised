@@ -22,11 +22,11 @@ export const TodoList = () => {
     const [editTitle, setEditTitle] = useState("")
     const [editDesc, setEditDesc] = useState("")
 
- 
+
     useEffect(() => {
         getTodos()
-        .then(data => setTodos(data))
-        .catch(err => setError(err.message))
+            .then(data => setTodos(data))
+            .catch(err => setError(err.message))
     }, [])
 
 
@@ -40,12 +40,12 @@ export const TodoList = () => {
 
     const handleSubmit = () => {
         if (title.trim() !== '' && description.trim() !== '') {
-                addTodo(title, description)
+            addTodo(title, description)
                 .then((data) => {
                     setTitle('');
                     setDescription('');
                     setTodos([...todos, data]);
-                    alert("Item added successfully!")                                 
+                    alert("Item added successfully!")
                 })
                 .catch((err) => {
                     setError(`Error occured: ${err.message}`);
@@ -112,7 +112,7 @@ export const TodoList = () => {
                 <div className="form-group d-flex gap-2 my-4 p-3">
                     {editId === -1 ?
                         <>
-                            <div className="col-md-6">
+                            <div className="col-md-8" style={{ marginLeft: "100px" }}>
                                 <input type="text" className="form-control" value={title} placeholder="Add title..." onChange={handleTitle} name="todo" style={styles.inputStyles} ></input>
                                 <input type="text" className="form-control mt-2" value={description} placeholder="Add description..." onChange={handleDesc} name="todo" style={styles.inputStyles}></input>
                             </div>
@@ -132,25 +132,31 @@ export const TodoList = () => {
                     }
 
                 </div>
-                <h1 style={{color: "#114595"}}>Task list!!!</h1>
-                {error && <h4 className="text-danger mt-3">{error}</h4>}
-                <ul className="col-md-12 mx-auto mt-4 list-group text-center ">
-                    {todos.map((todo) => {
-                        return (
-                            <li key={todo._id} className="d-flex align-items-center justify-content-between list-group-item">
-                                <div className="d-flex  flex-column mx-auto">
-                                    <span className="fw-bold" >{todo.title}</span>
-                                    <span className="text-muted" >{todo.description}</span>
-                                </div>
-                                <div className="ml-5">
-                                    <button className="btn btn-primary mx-2" onClick={() => handleEdit(todo._id)} >Edit</button>
-                                    <button className="btn btn-danger" onClick={() => deleteTodo(todo._id)}>Delete</button>
-                                </div>
-                            </li>
-                        )
-                    })
-                    }
-                </ul>
+                <h1 style={{ color: "#114595" }}>Task list!!!</h1>
+                <div className="p-3">
+                    {error && <h4 className="text-danger mt-3">{error}</h4>}
+                    <ul className="col-md-12 mx-auto mt-4 list-group text-center ">
+                        {todos.length > 0 ?(
+                            todos.map((todo) => {
+                                return (
+                                   <li key={todo._id} className="d-flex align-items-center justify-content-between list-group-item">
+                                       <div className="d-flex  flex-column mx-auto">
+                                           <span className="fw-bold" >{todo.title}</span>
+                                           <span className="text-muted" >{todo.description}</span>
+                                       </div>
+                                       <div className="ml-5">
+                                           <button className="btn btn-primary mx-2" onClick={() => handleEdit(todo._id)} >Edit</button>
+                                           <button className="btn btn-danger" onClick={() => deleteTodo(todo._id)}>Delete</button>
+                                       </div>
+                                   </li>
+                               )
+                           })
+                        ): (
+                            <li className="list-group-item text-center text-primary fw-bold">No task added</li>
+                        )                   
+                        }
+                    </ul>
+                </div>
             </div>
 
         </div>

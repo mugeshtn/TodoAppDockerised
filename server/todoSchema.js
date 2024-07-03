@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 const todoSchema = new mongoose.Schema({
     title:{
         required: true,
-        type: String
+        type: String,
+        unique: true
     },
     description:{
         required: true,
