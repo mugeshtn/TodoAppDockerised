@@ -11,11 +11,13 @@ app.use(cors())
 app.use('/', route)
 
 const CONNECTION_URL = "mongodb://localhost:27017/"
+const URL_DOCKER = "mongodb://host.docker.internal:27017/"
+const PORT = 5000
 
-mongoose.connect(CONNECTION_URL)
+mongoose.connect(URL_DOCKER)
     .then(() => {
         console.log("Connected to mongodb!")
-        app.listen(5000, () => console.log('Connected to server port http://localhost:5000'))
+        app.listen(PORT, () => console.log(`Connected to server port http://localhost:${PORT}`))
     })
     .catch((err) => console.log(err.message))
 
