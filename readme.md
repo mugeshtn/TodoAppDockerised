@@ -1,6 +1,6 @@
 # Todo Application
 
-This Todo application is full MERN based build, consists of a backend service, a frontend client, and a MongoDB database, all managed using Docker and Docker Compose. The backend is built with Express (Node.js), the frontend with React, and MongoDB is used for data storage.
+This Todo application is complete MERN based build, consists of a backend service, a frontend client, and a MongoDB database, all managed using Docker and Docker Compose. The backend is built with Express (Node.js), the frontend with React, and MongoDB is used for data storage.
 
 ## Project Structure
 
