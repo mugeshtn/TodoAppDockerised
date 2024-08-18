@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getTodos, addTodo, deleteTodo, updateTodo } from "./api";
+import { Toaster } from '@blueprintjs/core'
+import "@blueprintjs/core/lib/css/blueprint.css";
+
+
+const AppToaster = Toaster.create({
+    position: "top"
+})
 
 const styles = {
     inputStyles: {
@@ -45,7 +52,11 @@ export const TodoList = () => {
                     setTitle('');
                     setDescription('');
                     setTodos([...todos, data]);
-                    alert("Item added successfully!")
+                    AppToaster.show({
+                        message: "User Added Successfully!!",
+                        intent: "success",
+                        timeout: 3000
+                    })
                     setError("")
                 })
                 .catch((err) => {
@@ -67,7 +78,11 @@ export const TodoList = () => {
         })
             .then((res) => {
                 if (res.ok) {
-                    alert("Deletion successful")
+                    AppToaster.show({
+                        message: "Deletion Successful!!",
+                        intent: "success",
+                        timeout: 3000
+                    })
                     setError('')
                     setTodos(todos.filter(todo => todo._id !== id))
                     return
@@ -103,6 +118,11 @@ export const TodoList = () => {
             setEditId(-1)
             getTodos().then((data) => {
                 setTodos(data)
+                AppToaster.show({
+                    message: "Data Updation Successful!!",
+                    intent: "success",
+                    timeout: 3000
+                })
             })
         })
             .catch((err) => setError(`Error: ${err.message}`))
